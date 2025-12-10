@@ -1,0 +1,152 @@
+Let’s start from absolute scratch — step by step — like you know nothing about APIs, requests, or JSON.
+By the end, you will be able to call ANY API used in ML + GenAI.
+
+⭐ STEP 1 — What is an API? (Simple Explanation)
+
+API = A website for machines.
+
+When you (Python code) send a request → server gives response.
+
+Example:
+
+You: "Give me data"
+Server: "Here is JSON."
+
+⭐ STEP 2 — What is JSON?
+
+JSON looks like Python dict.
+
+Example JSON:
+
+{
+  "name": "Pooja",
+  "role": "Data Scientist",
+  "skills": ["Python", "ML"]
+}
+
+Python converts JSON → dict using:
+response.json()
+
+⭐ STEP 3 — What is “requests” library?
+
+It is a Python package that helps you call APIs.
+
+Install (if needed):
+pip install requests
+
+Import:
+import requests
+
+⭐ STEP 4 — Your First API Call (Simplest)
+
+We will use a dummy public API.
+
+Code:
+import requests
+
+url = "https://jsonplaceholder.typicode.com/users"
+
+response = requests.get(url)   # GET = asking data
+data = response.json()         # convert JSON to python
+
+print(data)
+
+
+👉 This is the first thing you should run.
+
+⭐ STEP 5 — Understanding GET
+
+GET = asking data
+Like: “Give me the users list.”
+
+Syntax:
+requests.get(url)
+
+⭐ STEP 6 — Understanding POST
+
+POST = sending data
+Like: “Create a new account.”
+
+Syntax:
+requests.post(url, json=payload)
+
+Example:
+payload = {"title": "Hello"}
+requests.post(url, json=payload)
+
+⭐ STEP 7 — Headers (very important)
+
+Headers tell server HOW you are sending data.
+
+Common:
+
+headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+}
+
+⭐ STEP 8 — Bearer Token (Authentication)
+
+Used in almost every ML/LLM API.
+
+headers = {
+    "Authorization": "Bearer YOUR_API_KEY"
+}
+
+You pass this in GET/POST:
+requests.get(url, headers=headers)
+
+⭐ STEP 9 — Check Response Status Code
+print(response.status_code)
+
+
+If it is:
+200 = success
+404 = wrong URL
+401 = wrong token
+500 = server error
+
+⭐ STEP 10 — Error Handling (Beginner)
+if response.status_code != 200:
+    print("Error:", response.text)
+
+
+Better:
+response.raise_for_status()
+
+⭐ STEP 11 — Practice Code (BEGINNER LEVEL)
+
+Put this in practice.py and run.
+
+import requests
+
+# Step 1: GET request
+url = "https://jsonplaceholder.typicode.com/users"
+response = requests.get(url)
+data = response.json()
+
+print("All Users:")
+print(data)
+
+# Step 2: Parse JSON
+user = data[0]
+print("User Name:", user["name"])
+print("City:", user["address"]["city"])
+
+⭐ Learn in 3 layers
+LEVEL 1 → Basics
+GET
+POST
+JSON
+headers
+
+LEVEL 2 → Authentication
+Bearer token
+API keys
+error handling
+
+LEVEL 3 → Real LLM APIs
+OpenAI
+Gemini
+Llama
+RAG calls
