@@ -1,0 +1,85 @@
+API MEANS...and what it does
+
+API – Meaning
+
+API stands for Application Programming Interface.
+
+What does an API do?
+An API allows two software systems to communicate with each other.
+
+It acts like a messenger:
+You send a request → API delivers it to the server
+Server processes it → API returns the result back to you
+
+Easy Real-Life Example
+
+When you order food on Zomato:
+App sends request to server through API
+Server returns restaurant list → API brings it back to the app
+API = Waiter who takes your order and brings your food.
+
+Technical View
+
+APIs:
+
+Define how software can interact (rules, format, methods)
+
+Enable data exchange using methods like GET, POST (HTTP calls)
+
+Hide internal complexity of systems
+
+Why APIs are important
+Benefit	Explanation
+Integration	Connect different apps (ex: payment gateway in e-commerce)
+Automation	Systems communicate without manual work
+Security	Expose only required data—not entire database
+Reusability	Same API can serve web, mobile, chatbot, etc.
+One-Line Answer for Interviews
+
+“API is an interface that allows two applications to communicate with each other.
+ It takes a request from a client and returns a response from the server, enabling integration and 
+data sharing.”
+
+Best Interview One-Liners
+
+GET
+“GET is used to retrieve data from the server. The data is passed via parameters in the URL.”
+
+POST
+“POST is used to send data to the server in the request body and usually modifies or processes information.”
+
+Request
+“A request is how a client asks a server for information or sends data.”
+
+Response
+“A response is the server’s reply containing the result of that request.”
+
+# api code--
+
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app=FastAPI()
+
+# GET API: Add two numbers
+@app.get("/add")
+def add(a:int,b:int):
+    result = a+b
+    return {"operation": "addition", "result": result}
+
+# Request body for POST API
+class MultiplyInput(BaseModel):
+    x: int
+    y: int
+
+# POST API: Multiply two numbers
+@app.post("/multiply")
+def multiply(input_data: MultiplyInput):
+    result = input_data.x * input_data.y
+    return {"operation": "multiplication", "result": result}
+
+
+uvicorn main:app --reload
+
+“Pydantic is a data validation library used by FastAPI to validate and structure request data.
+ It ensures that the incoming JSON has the correct fields and data types before processing.”
